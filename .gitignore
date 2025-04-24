@@ -1,0 +1,32 @@
+# IDE specific files and directories
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Build directories
+cmake-build-*
+build/
+
+# Executables
+*.exe
+*.out
+*.app
+
+# System files
+.DS_Store
+Thumbs.db
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Ninja build files
+*.ninja
+.ninja_deps
+.ninja_log
