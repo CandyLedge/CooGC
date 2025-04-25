@@ -4,21 +4,20 @@ using namespace std;
 // 双向链表节点
 template<typename T>
 struct ListNode {
-    T* data;              // 指向存储的数据
-    ListNode* prev;       // 指向前一个节点
-    ListNode* next;       // 指向后一个节点
+    T* data;
+    ListNode* prev;
+    ListNode* next;
 
     ListNode(T* d = nullptr)
         : data(d), prev(nullptr), next(nullptr) {}
 };
 
-// 可移植通用双向链表
 template<typename T>
 class LinkedList {
 public:
     LinkedList() : head(nullptr) {}
 
-    // 插入到表头 —— O(1) 操作
+    // insert head
     void push(T* value) {
         auto* node = new ListNode<T>(value);
         node->next = head;

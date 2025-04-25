@@ -17,12 +17,18 @@ struct Bitmap {
     }
 
     void set(size_t index,bool v) {
+        if (index >= bCount) {
+            cerr << "Bitmap::set 越界: index=" << index << "，bCount=" << bCount << endl;
+            return;
+        }
+        // Bitmap::set 越界: index=4611686018427387890，bCount=8
+        // Bitmap::set 越界: index=4611686018427387890，bCount=8
+
         //除8得字节，位移操作得某一位然后或进去
         if (v) {
-            // 设置为 1
+            // 设1
             bits[index / 8] |= (1 << (index % 8));
         } else {
-            // 设置为 0
             bits[index / 8] &= ~(1 << (index % 8));
         }
     }
