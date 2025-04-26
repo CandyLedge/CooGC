@@ -1,6 +1,12 @@
-#include <cstdint>
+//
+// Created by sa on 25-4-26.
+//
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
 #include <iostream>
 using namespace std;
+
 // 双向链表节点
 template<typename T>
 struct ListNode {
@@ -25,7 +31,6 @@ public:
         head = node;
     }
 
-
     void remove(T* value) {
         for (auto* cur = head; cur; cur = cur->next) {
             if (cur->data == value) {
@@ -37,7 +42,6 @@ public:
             }
         }
     }
-
 
     T* pop() {
         if (!head) return nullptr;
@@ -54,7 +58,7 @@ public:
     void debugPrint() const {
         std::cout << "Free blocks:";
         if (!head) {
-            std::cout << " (empty)\n";
+            std::cout << " (empty)";
             return;
         }
         char* base = (char*)head->data;
@@ -63,9 +67,8 @@ public:
             size_t offset = (char*)cur->data - base;
             std::cout << ' ' << offset;
         }
-        std::cout << '\n';
+        std::cout << "" << endl;
     }
-
 
     ~LinkedList() {
         while (head) {
@@ -79,39 +82,4 @@ private:
     ListNode<T>* head;
 };
 
-
-
-// int main() {
-//     // 模拟“内存池”基地址
-//     static char fakePool[1024];
-//     void* poolBase = fakePool;
-//
-//     LinkedList<BlockHeader> list;
-//
-//     BlockHeader b1{4,false}, b2{5,false}, b3{6,false};
-//
-//     // 插入测试
-//     list.push(&b1);
-//     list.push(&b2);
-//     list.push(&b3);
-//     std::cout << "After push_front b1, b2, b3:\n";
-//     list.debugPrint();
-//
-//     // pop_front 应移除 b3
-//     BlockHeader* p = list.pop();
-//     assert(p == &b3);
-//     std::cout << "After pop_front (b3 removed):\n";
-//     list.debugPrint();
-//
-//     // remove b1
-//     list.remove(&b1);
-//     std::cout << "After remove b1:\n";
-//     list.debugPrint();
-//
-//     // 清空链表
-//     list.pop();  // 移除 b2
-//     std::cout << "After removing all, empty? "
-//               << (list.empty() ? "yes" : "no") << std::endl;
-//
-//     return 0;
-// }
+#endif // LINKEDLIST_H
