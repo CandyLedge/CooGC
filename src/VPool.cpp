@@ -6,6 +6,7 @@ static int maxOrder = 10;
 static int minOrder = 1;
 static int poolSize = 1 << maxOrder;
 static int levels = maxOrder - minOrder + 1;
+VPool *VPool::alone=nullptr;
 
 VPool::VPool() {
     // 分配 freeLists 和 bitmaps
@@ -45,6 +46,12 @@ VPool::VPool() {
     //     freeLists[i] = new LinkedList<BlockHead>();
     //     bitmaps[i] = Bitmap(poolSize >> (minOrder + i));
     // }
+}
+VPool* VPool::getAlone() {
+    if (alone==nullptr) {
+        alone=new VPool;
+    }
+    return alone;
 }
 
 VPool::~VPool() {
