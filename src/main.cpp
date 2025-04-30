@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "BlockHead.h"
 #include "Bitmap.h"
+#include "HPoint.h"
 #include "Object.h"
 
 using namespace std;
@@ -11,19 +12,20 @@ int main() {
     cout << "\033[32m---CooCG   <(^_^<)----\033[0m" << endl;
     cout << "=========================" << endl;
 
+    {
+        HPoint<Object> a(new Object());
+        HPoint<Object> b = a;
+        a.reset();
+        b = HPoint<Object>(new Object());
 
-    VPool* pool=VPool::getAlone();
-    // Object* obj=new Object();
-    // delete obj;
-    cout << sizeof(ListNode<BlockHead>) << " " << sizeof(BlockHead) << " "
-         << sizeof(Bitmap) << " " << sizeof(VPool) << endl;
+        HPoint<Object> c;
+        c = b;
+        c = c;
 
-    // 测试分配和释放
-    void* ptr1 = pool->allocate(64);
-    cout << "Allocated 64 bytes\n";
+        HPoint<Object> d(std::move(b));
 
-    pool->del(ptr1);
-    cout << "Deallocated 64 bytes\n";
+        auto weak = HPoint<Object>::weakRef(c.get());
+    }
 
     return 0;
 }

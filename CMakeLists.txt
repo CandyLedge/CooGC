@@ -4,10 +4,12 @@ project(CooGC)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(CooGC
-        main.cpp
+        src/main.cpp
         src/Bitmap.cpp
         src/VPool.cpp
         src/Object.cpp
+        head/HPoint.h
+        head/SLog.h
 )
 
 # 正确添加头文件路径

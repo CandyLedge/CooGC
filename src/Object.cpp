@@ -1,26 +1,26 @@
 #include <iostream>
+#include <Object.h>
 #include <VPool.h>
 using namespace std;
 
-VPool pool;
-class Object {
-public:
-    void* operator new(const size_t size) {
-        void* ptr = pool.allocate(size);
-        if (!ptr) throw bad_alloc();  // 如果没有足够内存，抛出异常
-        return ptr;
-    }
+Object::Object() {
+    cout<< "Object created\n";
+}
 
-    // 重载 operator delete：模拟删除时不回收内存
-    void operator delete(void* ptr) {
 
-        cout << "object delete" << endl;
+Object::~Object() {
+    cout << "Object destroyed\n";
+}
 
-    }
-    Object() {
-        cout<<"object is create"<<endl;
-    }
-    ~Object() {
-        cout<<"object was free"<<endl;
-    }
-};
+void* Object::operator new(size_t size) {
+    void *block=VPool::getAlone()->allocate(sizeof(ObjHeader)+size);
+    new(block) ObjHeader(size);
+    return reinterpret_cast<char*>(block)+sizeof(ObjHeader);
+}
+void Object::operator delete(void* ptr) {
+   if (!ptr) return;
+    void* block=reinterpret_cast<char*>(ptr)-sizeof(ObjHeader);
+    ObjHeader* header=reinterpret_cast<ObjHeader*>(block);
+    header->~ObjHeader();
+    VPool::getAlone()->del(header);
+}

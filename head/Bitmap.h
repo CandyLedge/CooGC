@@ -1,7 +1,6 @@
 //
 // Created by sa on 25-4-26.
 //
-
 #ifndef BITMAP_H
 #define BITMAP_H
 

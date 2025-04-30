@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include "VPool.h"
 
-static int maxOrder = 10;
+static int maxOrder = 9;
 static int minOrder = 1;
 static int poolSize = 1 << maxOrder;
 static int levels = maxOrder - minOrder + 1;
@@ -14,13 +14,13 @@ VPool::VPool() {
     bitmaps = new Bitmap*[levels];
     base = malloc(poolSize);
 
-    // 统一初始化各级别的链表和位图
+    // 初始化链和图
     for (int lvl = 0; lvl < levels; lvl++) {
         freeLists[lvl] = new LinkedList<BlockHead>();
         bitmaps[lvl] = new Bitmap(poolSize >> (minOrder + lvl));
     }
 
-    // 将整块内存作为根块添加到最高级
+    // 将整块内存丢到添加到最高级
     BlockHead* root = reinterpret_cast<BlockHead*>(base);
     root->k = maxOrder;
     root->used = false;

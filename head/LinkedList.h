@@ -7,7 +7,6 @@
 #include <iostream>
 using namespace std;
 
-// 双向链表节点
 template<typename T>
 struct ListNode {
     T* data;
